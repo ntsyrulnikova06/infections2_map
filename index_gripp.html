@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>body{background-color:white;}</style>
+
+
+</head>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Количество заболевших и привитых: Грипп</title>
+
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; font-family: Arial, sans-serif; }
+  .wrap { max-width: 1400px; margin: 0 auto; height: 100vh; display: flex; flex-direction: column; }
+  .header { padding: 14px 12px 6px; }
+  .title { font-size: 20px; font-weight: 700; margin: 0 0 6px; }
+
+  .tabs { display: flex; gap: 10px; padding: 6px 12px 10px; flex-wrap: wrap; }
+  .tab { border: 1px solid #ccc; background: #fff; padding: 10px 14px; border-radius: 10px; cursor: pointer; font-size: 14px; }
+  .tab.active { border-color: #000; font-weight: bold; }
+
+  .map-area { flex: 1; position: relative; }
+  iframe { width: 100%; height: 100%; border: 0; display: none; }
+  iframe.active { display: block; }
+</style>
+</head>
+
+<body>
+<div class="wrap">
+  <div class="header">
+    <div class="title">Количество заболевших и привитых: Грипп</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showMap(1,this)">Заболевшие</button>
+    <button class="tab" onclick="showMap(2,this)">Привитые</button>
+  </div>
+
+  <div class="map-area">
+    <iframe id="map1" class="active" src="https://datawrapper.dwcdn.net/eW5yy/2/"></iframe>
+    <iframe id="map2" src="https://datawrapper.dwcdn.net/QlzU6/"></iframe>
+  </div>
+</div>
+
+<script>
+function showMap(n, btn){
+  document.querySelectorAll("iframe").forEach(m => m.classList.remove("active"));
+  document.getElementById("map"+n).classList.add("active");
+
+  document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+}
+</script>
+
+<script>
+window.addEventListener("message", function(event) {
+  if (typeof event.data !== "object") return;
+  if (!event.data["datawrapper-height"]) return;
+
+  for (const chartId in event.data["datawrapper-height"]) {
+    const height = event.data["datawrapper-height"][chartId];
+    document.querySelectorAll("iframe").forEach(iframe => {
+      if (iframe.src.includes("/" + chartId + "/")) {
+        iframe.style.height = height + "px";
+      }
+    });
+  }
+});
+</script>
+
+</body>
+</html>
+
+</html>
